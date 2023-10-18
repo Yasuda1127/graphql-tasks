@@ -4,6 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { TaskModule } from './task/task.module';
 
+// ルートモジュール
+
 @Module({
   imports: [
     GraphQLModule.forRoot({
