@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Task } from './modes/task.model';
+import { CreateTaskInput } from './dto/createTask.input';
 
 // アプリケーションで実現したい機能を定義する
 // 、データの処理、データベースアクセス、外部API呼び出し、計算、ロジックの実行など、さまざまなタスクを実行?
@@ -18,7 +19,11 @@ export class TaskService {
     return this.tasks;
   } // task一覧を取得するメソッド
 
-  createTask(name: string, dueDate: string, description?: string): Task {
+  createTask(
+    // name: string, dueDate: string, description?: string
+    createTaskInput: CreateTaskInput,
+  ): Task {
+    const { name, dueDate, description } = createTaskInput;
     const newTask = new Task();
     newTask.id = this.tasks.length + 1;
     newTask.name = name;
