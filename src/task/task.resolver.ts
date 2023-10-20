@@ -1,6 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { TaskService } from './task.service';
 import { Task } from './modes/task.model';
+import { CreateTaskInput } from './dto/createTask.input';
 
 // GraphQL APIがどのような処理を行うか定義
 // データの取得はQuery、その他(追加・更新・削除など)はMutation
@@ -17,12 +18,16 @@ export class TaskResolver {
     return this.taskService.getTasks(); // getTasksメソッドの結果を返却
   }
 
+  // REST APIでいうpostに値する
   @Mutation(() => Task)
   createTask(
-    @Args('name') name: string,
-    @Args('dueDate') dueDate: string,
-    @Args('description', { nullable: true }) description: string,
+    // GraphQLから情報を取り出す。
+    // Argsの引数にはGrsphQLでの引数を指定する
+    // @Args('name') name: string,
+    // @Args('dueDate') dueDate: string,
+    // @Args('description', { nullable: true }) description: string,
+    @Args('createTaskInput') createTaskInput: CreateTaskInput,
   ): Task {
-    return this.taskService.createTask(name, dueDate, description);
+    return this.taskService.createTask(createTaskInput);
   }
 }
